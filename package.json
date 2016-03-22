@@ -1,0 +1,57 @@
+{
+  "name": "tox-electron-whatsapp",
+  "productName": "toxWhatsApp",
+  "version": "0.0.0",
+  "description": "Unofficial WhatsApp Desktop Client for OSX based on eletron",
+  "author": "Enrico Hoffmann <dasrick@gmail.com>",
+  "license": "MIT",
+  "main": "main.js",
+  "keywords": [
+    "electron",
+    "whatsapp",
+    "toxWhatsApp"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dasrick/tox-electron-whatsapp.git"
+  },
+  "homepage": "https://github.com/dasrick/tox-electron-whatsapp#readme",
+  "bugs": {
+    "url": "https://github.com/dasrick/tox-electron-whatsapp/issues"
+  },
+  "electronVersion": "0.37.2",
+  "devDependencies": {
+    "electron-builder": "^2.10.1",
+    "electron-packager": "^5.2.1",
+    "electron-prebuilt": "^0.37.2"
+  },
+  "build": {
+    "osx": {
+      "title": "toxWhatsApp",
+      "icon": "build/icon.icns",
+      "icon-size": 80,
+      "background": "build/background.png",
+      "contents": [
+        {
+          "x": 438,
+          "y": 344,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 192,
+          "y": 344,
+          "type": "file"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "start": "electron ./app",
+    "start-dev": "export NODE_ENV=development && electron ./app",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "install-app-deps",
+    "pack": "export CSC_NAME='Developer ID Application: Enrico Hoffmann (M9E3AF4GW4)' && build",
+    "dist": "export CSC_NAME='Developer ID Application: Enrico Hoffmann (M9E3AF4GW4)' && build"
+  }
+}
