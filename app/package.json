@@ -2,7 +2,7 @@
   "name": "toxWhatsApp",
   "description": "Unofficial WhatsApp Desktop Client for OSX based on eletron",
   "author": "Enrico Hoffmann <dasrick@gmail.com>",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "main": "main.js",
   "build": {
     "app-bundle-id": "de.dasrick.tox-electron-whatsapp",
