@@ -6,6 +6,7 @@ var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
 var Menu = electron.Menu;
 var appName = app.getName();
+var autoUpdater = require('auto-updater');
 
 
 var darwinTpl = [
@@ -15,6 +16,14 @@ var darwinTpl = [
       {
         label: 'About ' + appName,
         role: 'about'
+      },
+      {
+        label: 'Check for Update...',
+        enabled: true,
+        click: function () {
+          console.log(' clicked updater ');
+          autoUpdater.checkForUpdates();
+        }
       },
       {
         type: 'separator'

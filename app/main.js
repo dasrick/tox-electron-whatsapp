@@ -26,7 +26,7 @@ app.on('window-all-closed', function () {
 
 app.on('ready', function () {
   electron.Menu.setApplicationMenu(appMenu.mainMenu);
-  
+console.log(appMenu.mainMenu.items[0].submenu.items[1]);
   var mainWindowState = windowStateKeeper({
     defaultWidth: 800,
     defaultHeight: 600
@@ -64,20 +64,25 @@ app.on('ready', function () {
       autoUpdater.setFeedURL(releaseUrl);
       autoUpdater
         .on('error', function (error) {
-          // console.log('auto-updater on error: ', error);
+          console.log('auto-updater on error: ', error);
         })
         .on('checking-for-update', function () {
-          // console.log('checking-for-update');
+          console.log('checking-for-update');
+          appMenu.mainMenu.items[0].submenu.items[1].enabled = false;
         })
         .on('update-available', function () {
-          // console.log('update-available');
+          console.log('update-available');
+          appMenu.mainMenu.items[0].submenu.items[1].label = 'Downloading update...';
         })
         .on('update-not-available', function () {
-          // console.log('update-not-available');
+          console.log('update-not-available');
+          appMenu.mainMenu.items[0].submenu.items[1].label = 'No Update available...';
+          appMenu.mainMenu.items[0].submenu.items[1].enabled = true;
         })
         .on('update-downloaded', function () {
-          // console.log('update-downloaded');
+          console.log('update-downloaded');
           // autoUpdater.quitAndInstall();
+          appMenu.mainMenu.items[0].submenu.items[1].label = 'Download update done...';
         });
       autoUpdater.checkForUpdates();
     }
