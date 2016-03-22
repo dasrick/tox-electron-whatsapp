@@ -6,7 +6,7 @@
 
 # toxWhatsApp
 
-Eletronized Desktop App for WhatsApp ...
+Unofficial WhatsApp Desktop Client (currently only for OSX) based on eletron
 
 ***
 

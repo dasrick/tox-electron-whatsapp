@@ -10,11 +10,14 @@ var os = require('os');
 var mainWindow = null;
 var appUrl = 'https://web.whatsapp.com';
 var userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36';
+
 // autoUpdater
 var autoUpdater = require('auto-updater');
 var platform = os.platform() + '_' + os.arch();
 var version = app.getVersion();
 var releaseUrl = 'https://tox-electron-whatsapp-nuts.herokuapp.com/update/' + platform + '/' + version;
+
+var appMenu = require('./menu');
 
 
 app.on('window-all-closed', function () {
@@ -22,6 +25,8 @@ app.on('window-all-closed', function () {
 });
 
 app.on('ready', function () {
+  electron.Menu.setApplicationMenu(appMenu.mainMenu);
+  
   var mainWindowState = windowStateKeeper({
     defaultWidth: 800,
     defaultHeight: 600
