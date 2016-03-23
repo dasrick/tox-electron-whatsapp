@@ -26,10 +26,10 @@ app.on('window-all-closed', function () {
 
 app.on('ready', function () {
   electron.Menu.setApplicationMenu(appMenu.mainMenu);
-console.log(appMenu.mainMenu.items[0].submenu.items[1]);
+// console.log(appMenu.mainMenu.items[0].submenu.items[1]);
   var mainWindowState = windowStateKeeper({
     defaultWidth: 800,
-    defaultHeight: 600
+    defaultHeight: 550
   });
   mainWindow = new BrowserWindow({
     title: app.getName(),
@@ -37,13 +37,14 @@ console.log(appMenu.mainMenu.items[0].submenu.items[1]);
     y: mainWindowState.y,
     width: mainWindowState.width,
     height: mainWindowState.height,
+    minWidth: 650,
     resizable: true,
     center: true,
-    show: true // später auf false und das ganze managen
+    show: false,
     // frame: true,
-    // autoHideMenuBar: true,
+    autoHideMenuBar: true,
     //icon: 'assets/icon.png',
-    // titleBarStyle: 'hidden-inset'
+    titleBarStyle: 'hidden-inset'
   });
 
   mainWindowState.manage(mainWindow);
@@ -56,6 +57,11 @@ console.log(appMenu.mainMenu.items[0].submenu.items[1]);
 
   mainWindow.on('closed', function () {
     mainWindow = null;
+  });
+
+  mainWindow.webContents.on('dom-ready', function () {
+    mainWindow.webContents.insertCSS('.pane-list-user {padding-left: 60px;}');
+    mainWindow.show();
   });
 
   mainWindow.webContents.on('did-finish-load', function () {
