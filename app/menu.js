@@ -43,7 +43,7 @@ var darwinTpl = [
       },
       {
         label: 'Hide Others',
-        accelerator: 'Cmd+Shift+H',
+        accelerator: 'Cmd+Alt+H',
         role: 'hideothers'
       },
       {
