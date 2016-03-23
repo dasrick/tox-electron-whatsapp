@@ -1,7 +1,7 @@
 {
   "name": "tox-electron-whatsapp",
   "productName": "toxWhatsApp",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Unofficial WhatsApp Desktop Client for OSX based on eletron",
   "author": "Enrico Hoffmann <dasrick@gmail.com>",
   "license": "MIT",
