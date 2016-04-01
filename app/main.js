@@ -1,13 +1,17 @@
 'use strict';
 
+// electron stuff
 var electron = require('electron');
 var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
+
+// misc dependencies
 var windowStateKeeper = require('electron-window-state');
 var os = require('os');
 
 // basic window
 var mainWindow = null;
+var thePage = null;
 var appUrl = 'https://web.whatsapp.com';
 var userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36';
 
@@ -24,47 +28,33 @@ app.on('window-all-closed', function () {
 });
 
 app.on('ready', function () {
+  // app menu ==========================================================================================================
   electron.Menu.setApplicationMenu(appMenu.mainMenu);
 
-  var mainWindowState = windowStateKeeper({
-    defaultWidth: 800,
-    defaultHeight: 550
-  });
-  
-  mainWindow = new BrowserWindow({
-    title: app.getName(),
-    x: mainWindowState.x,
-    y: mainWindowState.y,
-    width: mainWindowState.width,
-    height: mainWindowState.height,
-    minWidth: 650,
-    resizable: true,
-    center: true,
-    show: false,
-    // frame: true,
-    autoHideMenuBar: true,
-    //icon: 'assets/icon.png',
-    titleBarStyle: 'hidden-inset'
-  });
+  // mainWindow ========================================================================================================
+  mainWindow = getMainWindow();
 
-  mainWindowState.manage(mainWindow);
+  // mainWindow events -------------------------------------------------------------------------------------------------
+  mainWindow
+    .on('closed', function () {
+      mainWindow = null;
+    })
+    .on('page-title-updated', function (event, title) {
+      updateTray(title);
+    })
+  ;
 
-  mainWindow.loadURL(appUrl, {userAgent: userAgent});
+  // thePage ===========================================================================================================
+  thePage = mainWindow.webContents;
 
-  if (process.env.NODE_ENV === 'development') {
-    mainWindow.openDevTools({detach: true});
-  }
-
-  mainWindow.on('closed', function () {
-    mainWindow = null;
-  });
-
-  mainWindow.webContents.on('dom-ready', function () {
-    mainWindow.webContents.insertCSS('.pane-list-user {padding-left: 60px;}');
+  // thePage events ----------------------------------------------------------------------------------------------------
+  thePage
+    .on('dom-ready', function () {
+    thePage.insertCSS('.pane-list-user {padding-left: 60px;}');
     mainWindow.show();
-  });
-
-  mainWindow.webContents.on('did-finish-load', function () {
+  })
+  .on('did-finish-load', function () {
+    mainWindow.setTitle(app.getName()); // ja, noch einmal - sonst ist es der Titel der Website
     // autoUpdater -----------------------------------------------------------------------------------------------------
     if (process.env.NODE_ENV !== 'development') {
       autoUpdater.setFeedURL(releaseUrl);
@@ -93,6 +83,52 @@ app.on('ready', function () {
       autoUpdater.checkForUpdates();
     }
     // autoUpdater -----------------------------------------------------------------------------------------------------
-  });
+  })
+  ;
 
 });
+
+// private methods /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function getMainWindow() {
+  var mainWindowState = windowStateKeeper({
+    defaultWidth: 800,
+    defaultHeight: 550
+  });
+
+  var theMainWindow = new BrowserWindow({
+    title: app.getName(),
+    x: mainWindowState.x,
+    y: mainWindowState.y,
+    width: mainWindowState.width,
+    height: mainWindowState.height,
+    minWidth: 650,
+    resizable: true,
+    center: true,
+    show: false,
+    autoHideMenuBar: true,
+    //icon: 'assets/icon.png',  für linux nen png ... also später
+    titleBarStyle: 'hidden-inset'
+  });
+
+  mainWindowState.manage(theMainWindow);
+
+  theMainWindow.loadURL(appUrl, {userAgent: userAgent});
+
+  if (process.env.NODE_ENV === 'development') {
+    theMainWindow.openDevTools({detach: true});
+  }
+
+  return theMainWindow;
+}
+
+function updateTray(title) {
+  if (os.platform() === 'darwin') {
+    var messageCount = (/\(([0-9]+)\)/).exec(title);
+    var badgeString = messageCount ? messageCount[1] : '';
+    app.dock.setBadge(badgeString);
+    if (messageCount) {
+      app.dock.bounce('informational');
+    }
+  }
+}
