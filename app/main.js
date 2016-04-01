@@ -19,18 +19,18 @@ var releaseUrl = 'https://tox-electron-whatsapp-nuts.herokuapp.com/update/' + pl
 
 var appMenu = require('./menu');
 
-
 app.on('window-all-closed', function () {
   app.quit();
 });
 
 app.on('ready', function () {
   electron.Menu.setApplicationMenu(appMenu.mainMenu);
-// console.log(appMenu.mainMenu.items[0].submenu.items[1]);
+
   var mainWindowState = windowStateKeeper({
     defaultWidth: 800,
     defaultHeight: 550
   });
+  
   mainWindow = new BrowserWindow({
     title: app.getName(),
     x: mainWindowState.x,

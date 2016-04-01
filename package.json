@@ -19,11 +19,11 @@
   "bugs": {
     "url": "https://github.com/dasrick/tox-electron-whatsapp/issues"
   },
-  "electronVersion": "0.37.2",
+  "electronVersion": "0.37.3",
   "devDependencies": {
-    "electron-builder": "^2.10.1",
-    "electron-packager": "^5.2.1",
-    "electron-prebuilt": "^0.37.2"
+    "electron-builder": "^3.1.1",
+    "electron-packager": "^6.0.0",
+    "electron-prebuilt": "^0.37.3"
   },
   "build": {
     "osx": {
