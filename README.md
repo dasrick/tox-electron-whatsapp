@@ -7,7 +7,7 @@
 
 # toxWhatsApp
 
-Unofficial WhatsApp Desktop Client (currently only for OSX) based on eletron
+Unofficial WhatsApp Desktop Client (currently only for OSX) based on electron
 
 ***
 
