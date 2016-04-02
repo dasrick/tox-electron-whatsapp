@@ -1,5 +1,4 @@
 [![GitHub release][github-image-release]][github-url]
-[![GitHub downloads all][github-image-downloads-all]][github-url]
 [![dependency Status][dependency-image]][dependency-url]
 [![devDependency Status][devDependency-image]][devDependency-url]
 [![License][license-image]][license-url]
