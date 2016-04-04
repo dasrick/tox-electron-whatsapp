@@ -32,6 +32,8 @@ app.on('window-all-closed', function () {
 
 app.on('ready', function () {
   // app menu ==========================================================================================================
+  // Hint: after app.on('ready' ... it is possible to get locale from platform ... app.getLocale()
+  // see: https://github.com/atom/electron/pull/2800
   Menu.setApplicationMenu(appMenu.mainMenu);
 
   // mainWindow ========================================================================================================
@@ -58,7 +60,7 @@ app.on('ready', function () {
       mainWindow.show();
     })
     .on('did-finish-load', function () {
-      mainWindow.setTitle(app.getName()); // ja, noch einmal - sonst ist es der Titel der Website
+      mainWindow.setTitle(app.getName()); // ja, noch einmal - sonst ist es der Titel der Website (im dock wenn hidden)
       // autoUpdater -----------------------------------------------------------------------------------------------------
       if (process.env.NODE_ENV !== 'development') {
         autoUpdater.setFeedURL(releaseUrl);
@@ -68,21 +70,21 @@ app.on('ready', function () {
           })
           .on('checking-for-update', function () {
             console.log('checking-for-update');
-            appMenu.mainMenu.items[0].submenu.items[1].enabled = false;
+            appMenu.mainMenu.items[0].submenu.items[1].enabled = false; // hmmm ... vllt
           })
           .on('update-available', function () {
             console.log('update-available');
-            appMenu.mainMenu.items[0].submenu.items[1].label = 'Downloading update...';
+            appMenu.mainMenu.items[0].submenu.items[1].label = 'Downloading update...'; // hmmm ... vllt
           })
           .on('update-not-available', function () {
             console.log('update-not-available');
-            appMenu.mainMenu.items[0].submenu.items[1].label = 'No Update available...';
-            appMenu.mainMenu.items[0].submenu.items[1].enabled = true;
+            appMenu.mainMenu.items[0].submenu.items[1].label = 'No Update available...'; // hmmm ... vllt
+            appMenu.mainMenu.items[0].submenu.items[1].enabled = true; // hmmm ... vllt
           })
           .on('update-downloaded', function () {
             console.log('update-downloaded');
             // autoUpdater.quitAndInstall();
-            appMenu.mainMenu.items[0].submenu.items[1].label = 'Download update done...';
+            appMenu.mainMenu.items[0].submenu.items[1].label = 'Download update done...'; // hmmm ... vllt
           });
         autoUpdater.checkForUpdates();
       }
@@ -127,6 +129,8 @@ function getMainWindow() {
 }
 
 function setupTray() {
+  // ToDo Icon-Maße für tray/menubar(mac) klären ... und was ist mit retina?
+
   // trayIcon = new Tray(path.join(__dirname, 'media', 'icon-tray.png'));
   // trayIcon.setPressedImage(path.join(__dirname, 'media', 'icon-tray-pressed.png'));
   // trayIcon.setContextMenu(appMenu.trayMenu); // hier muss noch das menu nachgepflegt werden
