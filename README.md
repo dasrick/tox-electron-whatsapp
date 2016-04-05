@@ -11,6 +11,21 @@ Unofficial WhatsApp Desktop Client (currently only for OSX) based on electron
 
 ***
 
+## was geht ...
+
+* OSX-Client
+* Auto-Update
+* Badge im Dock bei neuen Nachrichten
+* Mitteilung bei neuen Nachrichten
+
+## was kommt ...
+
+* Lokalisierung (en, de, fr ... es, jp, tr ... ach was weiß ich)
+* Windows-Client inkl. Auto-Update
+* Linux-Client (leider ohne Auto-Update)
+* Tray-Icon (inkl. Notifikation bei neuen Nahrichten)
+
+
 [github-image-release]: https://img.shields.io/github/release/dasrick/tox-electron-whatsapp.svg?style=flat-square
 [github-image-downloads-all]: https://img.shields.io/github/downloads/dasrick/tox-electron-whatsapp/total.svg?style=flat-square
 [github-url]: https://github.com/dasrick/tox-electron-whatsapp
