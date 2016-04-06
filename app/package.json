@@ -3,7 +3,7 @@
   "productName": "toxWhatsApp",
   "description": "Unofficial WhatsApp Desktop Client for OSX based on electron",
   "author": "Enrico Hoffmann <dasrick@gmail.com>",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "main": "main.js",
   "dependencies": {
     "electron-window-state": "^2.0.0"
