@@ -19,11 +19,11 @@
   "bugs": {
     "url": "https://github.com/dasrick/tox-electron-whatsapp/issues"
   },
-  "electronVersion": "0.37.4",
+  "electronVersion": "0.37.5",
   "devDependencies": {
-    "electron-builder": "~3.2.0",
+    "electron-builder": "~3.5.2",
     "electron-packager": "^6.0.0",
-    "electron-prebuilt": "^0.37.4"
+    "electron-prebuilt": "^0.37.5"
   },
   "build": {
     "app-bundle-id": "de.dasrick.tox-electron-whatsapp",
@@ -46,6 +46,10 @@
           "type": "file"
         }
       ]
+    },
+    "win": {
+      "title": "toxWhatsApp",
+      "icon": "build/icon.ico"
     }
   },
   "scripts": {
@@ -54,6 +58,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "install-app-deps",
     "pack": "export CSC_NAME='Developer ID Application: Enrico Hoffmann (M9E3AF4GW4)' && build",
-    "dist": "export CSC_NAME='Developer ID Application: Enrico Hoffmann (M9E3AF4GW4)' && build"
+    "dist": "npm run dist:osx && npm run dist:win64 && npm run dist:linux",
+    "dist:osx": "export CSC_NAME='Developer ID Application: Enrico Hoffmann (M9E3AF4GW4)' && build --platform darwin",
+    "dist:win64": "build --platform win32 --arch x64",
+    "dist:linux": "build --platform linux --arch x64"
   }
 }
